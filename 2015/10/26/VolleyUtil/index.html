@@ -239,22 +239,38 @@
 <span class="code">    netImageView.setImageUrl(img_rul,imageLoader)</span>
 </code></pre><h2 id="VolleyUtil介绍">VolleyUtil介绍</h2><ol>
 <li><p>单例模式实现：</p>
-<pre><code> <span class="function"><span class="keyword">private</span> <span class="title">VolleyUtil</span><span class="params">(Context context)</span></span>{
-requestQueue = Volley.newRequestQueue(context);
-</code></pre><p>   }<br>   public static VolleyUtil getInstance(Context context){<br>   if(volleyUtil==null){</p>
-<pre><code>ics = <span class="keyword">new</span> <span class="type">ArrayList</span> &lt; <span class="type">ImageLoader</span>.<span class="type">ImageContainer</span> &gt; <span class="literal">()</span>;
-volleyUtil = <span class="keyword">new</span> <span class="type">VolleyUtil</span>(context);
-</code></pre><p>   }<br>   return volleyUtil;<br>   }</p>
-</li>
+<pre><code>   <span class="function"><span class="keyword">private</span> <span class="title">VolleyUtil</span><span class="params">(Context context)</span></span>{
+ requestQueue = Volley.newRequestQueue(context);
+}
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="function">VolleyUtil <span class="title">getInstance</span><span class="params">(Context context)</span></span>{
+<span class="keyword">if</span>(volleyUtil==<span class="keyword">null</span>){
+    ics = <span class="keyword">new</span> ArrayList &lt; ImageLoader.ImageContainer &gt; ();
+    volleyUtil = <span class="keyword">new</span> VolleyUtil(context);
+}
+<span class="keyword">return</span> volleyUtil;
+}
+</code></pre></li>
 <li><p>请求图片：</p>
-<p>  //NetworkImageView控件<br>  public  void loadImage(String url,NetworkImageView networkImageView){<br>  if(requestQueue==null) {</p>
-<pre><code><span class="keyword">throw</span> <span class="keyword">new</span> BusinessRuntimeException(<span class="string">"requestQueue未实例化"</span>);
-</code></pre><p>  }<br>  ImageLoader imageLoader = new ImageLoader(requestQueue, BitmapCache.instance());<br>  networkImageView.setImageUrl(url,imageLoader);</p>
-<p>  }</p>
-<p>  //ImageView控件<br>  public  void loadImage(String url,ImageView imageView,int defimgid,int errorimgid){<br>  if(requestQueue==null) {</p>
-<pre><code><span class="keyword">throw</span> <span class="keyword">new</span> BusinessRuntimeException(<span class="string">"requestQueue未实例化"</span>);
-</code></pre><p>  }<br>  ImageLoader imageLoader = new ImageLoader(requestQueue, BitmapCache.instance());<br>  ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView, defimgid,errorimgid);<br>  ImageLoader.ImageContainer ic = imageLoader.get(url, listener);<br>  ics.add(ic);<br>  }</p>
-</li>
+<pre><code><span class="comment">//NetworkImageView控件</span>
+<span class="keyword">public</span>  <span class="keyword">void</span> <span class="built_in">loadImage</span>(<span class="keyword">String</span> url,NetworkImageView networkImageView){
+<span class="keyword">if</span>(requestQueue==<span class="keyword">null</span>) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> BusinessRuntimeException(<span class="string">"requestQueue未实例化"</span>);
+}
+ImageLoader imageLoader = <span class="keyword">new</span> ImageLoader(requestQueue, BitmapCache.instance());
+networkImageView.setImageUrl(url,imageLoader);
+}
+
+<span class="comment">//ImageView控件</span>
+<span class="keyword">public</span>  <span class="keyword">void</span> <span class="built_in">loadImage</span>(<span class="keyword">String</span> url,ImageView imageView,<span class="built_in">int</span> defimgid,<span class="built_in">int</span> errorimgid){
+<span class="keyword">if</span>(requestQueue==<span class="keyword">null</span>) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> BusinessRuntimeException(<span class="string">"requestQueue未实例化"</span>);
+}
+ImageLoader imageLoader = <span class="keyword">new</span> ImageLoader(requestQueue, BitmapCache.instance());
+ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView, defimgid,errorimgid);
+ImageLoader.ImageContainer ic = imageLoader.<span class="built_in">get</span>(url, listener);
+ics.<span class="built_in">add</span>(ic);
+}
+</code></pre></li>
 <li><p>图片缓存</p>
 <p>  实现ImageCache接口。<br>  public class BitmapCache implements ImageLoader.ImageCache {</p>
 <pre><code>  <span class="function"><span class="keyword">private</span> <span class="title">BitmapCache</span><span class="params">()</span></span>{
@@ -298,13 +314,9 @@ volleyUtil = <span class="keyword">new</span> <span class="type">VolleyUtil</spa
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2015/10/26/hello-world/" style="float: left;">
-        ← Hello World
-    </a>
     
-    
-    <a class="pull-right" href="/2015/04/17/test/">
-        Markdown简单语法 →
+    <a class="pull-right" href="/2015/08/26/jquery-spring/">
+        JQuery easyUI + SpringMVC →
     </a>
     
 </nav>
