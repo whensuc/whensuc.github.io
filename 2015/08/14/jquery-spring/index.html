@@ -1,194 +1,344 @@
 <!DOCTYPE html>
-<html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
 <head>
-  <meta charset="utf-8">
-  
   <title>JQuery easyUI + SpringMVC | 你一定要努力</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第一次使用JQuery easyUI + SpringMVC做项目，非常强大，做项目非常快。JQuery easyUI提供了丰富的控件来供使用。可以查看提供的demo和文档：http://www.jeasyui.net/
-JQuery easyUI简介123456easyui是一种基于jQuery的用户界面插件集合。easyui为创建现代化，互动，JavaScript应用程序，提供必要的功能。使用">
-<meta property="og:type" content="article">
-<meta property="og:title" content="JQuery easyUI + SpringMVC">
-<meta property="og:url" content="http://yoursite.com/2015/08/14/jquery-spring/index.html">
-<meta property="og:site_name" content="你一定要努力">
-<meta property="og:description" content="第一次使用JQuery easyUI + SpringMVC做项目，非常强大，做项目非常快。JQuery easyUI提供了丰富的控件来供使用。可以查看提供的demo和文档：http://www.jeasyui.net/
-JQuery easyUI简介123456easyui是一种基于jQuery的用户界面插件集合。easyui为创建现代化，互动，JavaScript应用程序，提供必要的功能。使用">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JQuery easyUI + SpringMVC">
-<meta name="twitter:description" content="第一次使用JQuery easyUI + SpringMVC做项目，非常强大，做项目非常快。JQuery easyUI提供了丰富的控件来供使用。可以查看提供的demo和文档：http://www.jeasyui.net/
-JQuery easyUI简介123456easyui是一种基于jQuery的用户界面插件集合。easyui为创建现代化，互动，JavaScript应用程序，提供必要的功能。使用">
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="你一定要努力">
+    <meta name="author" content="when">
+    <meta name="description" content="倾其全力 剩下的交给命运" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="你一定要努力" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+	
+    <link rel="stylesheet" href="/highlightjs/vs.css" type="text/css">
+    
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
   
-    <link rel="alternative" href="/atom.xml" title="你一定要努力" type="application/atom+xml">
   
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
   
 
+  
+  <style>.col-md-8.col-md-offset-2.opening-statement img{display:none;}</style>
 </head>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">你一定要努力</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">倾其全力 剩下的交给命运</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-jquery-spring" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/08/14/jquery-spring/" class="article-date">
-  <time datetime="2015-08-14T08:45:58.000Z" itemprop="datePublished">2015-08-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      JQuery easyUI + SpringMVC
-    </h1>
-  
 
-      </header>
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://go.kieran.top/" class="animsition-link">Kieran</a></li>
+                    
+                    <li><a href="http://domain.com/" class="animsition-link">Name</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
     
-    <div class="article-entry" itemprop="articleBody">
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">你一定要努力</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/1.jpg) no-repeat center center fixed;background-size: cover">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
       
-        <p>第一次使用JQuery easyUI + SpringMVC做项目，非常强大，做项目非常快。JQuery easyUI提供了丰富的控件来供使用。可以查看提供的demo和文档：<a href="http://www.jeasyui.net/" target="_blank" rel="external">http://www.jeasyui.net/</a></p>
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2015-08-14T08:45:58.000Z" itemprop="datePublished">
+          2015-08-14
+      </time>
+    
+</span>
+                <h1>JQuery easyUI + SpringMVC</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>第一次使用JQuery easyUI + SpringMVC做项目，非常强大，做项目非常快。JQuery easyUI提供了丰富的控件来供使用。可以查看提供的demo和文档：<a href="http://www.jeasyui.net/" target="_blank" rel="external">http://www.jeasyui.net/</a></p>
 <h2 id="JQuery_easyUI简介">JQuery easyUI简介</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">easyui是一种基于jQuery的用户界面插件集合。</span><br><span class="line">easyui为创建现代化，互动，JavaScript应用程序，提供必要的功能。</span><br><span class="line">使用easyui你不需要写很多代码，你只需要通过编写一些简单HTML标记，就可以定义用户界面。</span><br><span class="line">easyui是个完美支持HTML5网页的完整框架。</span><br><span class="line">easyui节省您网页开发的时间和规模。</span><br><span class="line">easyui很简单但功能强大的。</span><br></pre></td></tr></table></figure>
 <h2 id="SpringMVC简介">SpringMVC简介</h2><figure class="highlight"><figcaption><span>MVC 分离了控制器、模型对象、分派器以及处理程序对象的角色，这种分离让它们更容易进行定制。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;&#10;### web.xml&#37197;&#32622;&#10;``` &#60;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&#62;&#10;&#60;web-app xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34; xmlns=&#34;http://java.sun.com/xml/ns/javaee&#34; xmlns:web=&#34;http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&#34; xsi:schemaLocation=&#34;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&#34; version=&#34;2.5&#34;&#62;&#10;  &#60;context-param&#62;&#10;    &#60;param-name&#62;contextConfigLocation&#60;/param-name&#62;&#10;    &#60;param-value&#62;/WEB-INF/springmvc-servlet.xml&#60;/param-value&#62;&#10;  &#60;/context-param&#62;&#10;  &#60;listener&#62;&#10;    &#60;listener-class&#62;org.springframework.web.context.ContextLoaderListener&#60;/listener-class&#62;&#10;  &#60;/listener&#62;&#10;  &#60;filter&#62;&#10;    &#60;filter-name&#62;characterEncodingFilter&#60;/filter-name&#62;&#10;    &#60;filter-class&#62;org.springframework.web.filter.CharacterEncodingFilter&#60;/filter-class&#62;&#10;    &#60;init-param&#62;&#10;      &#60;param-name&#62;encoding&#60;/param-name&#62;&#10;      &#60;param-value&#62;UTF-8&#60;/param-value&#62;&#10;    &#60;/init-param&#62;&#10;    &#60;init-param&#62;&#10;      &#60;param-name&#62;forceEncoding&#60;/param-name&#62;&#10;      &#60;param-value&#62;true&#60;/param-value&#62;&#10;    &#60;/init-param&#62;&#10;  &#60;/filter&#62;&#10;  &#60;filter-mapping&#62;&#10;    &#60;filter-name&#62;characterEncodingFilter&#60;/filter-name&#62;&#10;    &#60;url-pattern&#62;/*&#60;/url-pattern&#62;&#10;  &#60;/filter-mapping&#62;&#10;  &#60;servlet&#62;&#10;    &#60;servlet-name&#62;springmvc&#60;/servlet-name&#62;&#10;    &#60;servlet-class&#62;org.springframework.web.servlet.DispatcherServlet&#60;/servlet-class&#62;&#10;    &#60;init-param&#62;&#10;      &#60;param-name&#62;contextConfigLocation&#60;/param-name&#62;&#10;      &#60;param-value&#62;/WEB-INF/*-servlet.xml&#60;/param-value&#62;&#10;    &#60;/init-param&#62;&#10;    &#60;load-on-startup&#62;1&#60;/load-on-startup&#62;&#10;  &#60;/servlet&#62;&#10;  &#60;servlet-mapping&#62;&#10;    &#60;servlet-name&#62;springmvc&#60;/servlet-name&#62;&#10;    &#60;url-pattern&#62;*.htm&#60;/url-pattern&#62;&#10;  &#60;/servlet-mapping&#62;&#10;  &#60;welcome-file-list&#62;&#10;    &#60;welcome-file&#62;index.jsp&#60;/welcome-file&#62;&#10;  &#60;/welcome-file-list&#62;&#10;  &#60;filter&#62;  &#10;    &#60;filter-name&#62;sessionFilter&#60;/filter-name&#62;  &#10;    &#60;filter-class&#62;com.dygkd.interceptor.LoginFilter&#60;/filter-class&#62;  &#10;&#60;/filter&#62;  &#10;&#60;filter-mapping&#62;  &#10;    &#60;filter-name&#62;sessionFilter&#60;/filter-name&#62;  &#10;    &#60;url-pattern&#62;*.jsp&#60;/url-pattern&#62;  &#10;&#60;/filter-mapping&#62;  &#10;&#60;/web-app&#62;</span><br></pre></td></tr></table></figure>
 <h3 id="springmvc-servlet-xml配置">springmvc-servlet.xml配置</h3><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">`<span class="javascript"></span>``<span class="javascript"></span><br><span class="line"></span><br><span class="line">### 注解</span><br><span class="line"></span><br><span class="line"></span>``<span class="javascript"></span>`<span class="property">@Controller</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">FastmailAction</span> </span></span><br><span class="line"><span class="property">@RequestMapping</span>(value=<span class="string">"/showinfo"</span>) 影射请求uri</span><br><span class="line"><span class="property">@ModelAttribute</span> 	参数</span><br><span class="line"><span class="property">@ResponseBody</span>		返回JSON</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/08/14/jquery-spring/" data-id="cidbfi9fs0002f0d6hsh9qmb2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
     
-<nav id="article-nav">
-  
-  
-    <a href="/2015/04/17/test/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Makedown简单语法</div>
+    
+    <a class="pull-right" href="/2015/04/17/test/">
+        Makedown简单语法 →
     </a>
-  
+    
 </nav>
 
-  
-</article>
-
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/08/14/jquery-spring/" data-title="JQuery easyUI + SpringMVC" data-url="http://yoursite.com/2015/08/14/jquery-spring/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"duoshuo_name"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
 </section>
-        
-          <aside id="sidebar">
-  
-    
-  
-    
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">2</span></li></ul>
-    </div>
-  </div>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recents</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2015/08/14/jquery-spring/">JQuery easyUI + SpringMVC</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/17/test/">Makedown简单语法</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/03/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2015 when<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By when. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
     
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
 
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
-
-
-<script src="/js/script.js" type="text/javascript"></script>
-
-  </div>
 </body>
 </html>
