@@ -232,13 +232,33 @@
         具有一定的格式。
 </code></pre></li>
 <li><p><strong><em>markedown语法</em></strong></p>
-<pre><code>2.2 MarkeDown入门
-    <span class="comment">#：一级标题. ##:二级标题.一次类推.</span>
-    注意:<span class="comment">#后加空格</span>
-    <span class="keyword">*</span><span class="keyword">*</span>文字<span class="keyword">*</span><span class="keyword">*</span>:加粗
-    <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>文字<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>:加粗斜体
-    [文字](url)：链接
-    ![](图片url):插入图片
+<pre><code>2<span class="class">.2</span> 基本符号
+    1. *,<span class="tag">-</span>,+ 3个符号效果都一样，这3个符号被称为 <span class="tag">Markdown</span>符号
+    2. 空白行表示另起一个段落
+    3. `是表示<span class="tag">inline</span>代码，<span class="tag">tab</span>是用来标记 代码段，分别对应<span class="tag">html</span>的<span class="tag">code</span>，<span class="tag">pre</span>标签
+2<span class="class">.3</span> 换行
+    1. 单一段落( &lt;<span class="tag">p</span>&gt;) 用一个空白行
+    2. 连续两个空格 会变成一个 &lt;<span class="tag">br</span>&gt;
+    3. 连续3个符号，然后是空行，表示 <span class="tag">hr</span>横线
+2<span class="class">.4</span> 标题
+    1. 生成<span class="tag">h1--h6</span>,在文字前面加上 1<span class="tag">--6</span>个# 来实现
+    2. 文字加粗是通过 文字左右各两个符号
+2<span class="class">.5</span> 链接
+    1. 直接写 <span class="attr_selector">[锚文本]</span>(<span class="tag">url</span> "可选的<span class="tag">title</span>")
+    2. 引用 先定义 <span class="attr_selector">[ref_name]</span><span class="pseudo">:url</span>，然后在需要写入<span class="tag">url</span>的地方， 这样使用<span class="attr_selector">[锚文本]</span><span class="attr_selector">[ref_name]</span>，通常的
+    3. <span class="tag">ref_name</span>一般用数字表示，这样显得专业
+2<span class="class">.6</span> 插入图片
+    1. 一行表示:!<span class="attr_selector">[alt_text]</span>(<span class="tag">url</span> "可选的<span class="tag">title</span>")
+    2. 引用表示法: !<span class="attr_selector">[alt_text]</span><span class="attr_selector">[id]</span>,预先定义 <span class="attr_selector">[id]</span><span class="pseudo">:url</span> "可选<span class="tag">title</span>"
+    3. 直接使用&lt;<span class="tag">img</span>&gt;标签，这样可以指定图片的大小尺寸
+2<span class="class">.7</span> 特殊符号
+    1. 用\来转义，表示文本中的<span class="tag">markdown</span>符号
+    2. 可以在文本种直接使用<span class="tag">html</span>标签，但是要注意在使用的时候，前后加上空行
+    3. 文本前后各加一个符号，表示斜体
+</code></pre></li>
+<li><p><strong><em>markedown语法参考链接</em></strong></p>
+<pre><code>[链接一](http://www.jianshu.com/p/1e402922ee32/ "来自简书"）
+[<span class="link_label">链接二</span>](<span class="link_url">http://www.cnblogs.com/hnrainll/p/3514637.html "来自博客园"</span>)
 </code></pre></li>
 </ol>
 
