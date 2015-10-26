@@ -1482,7 +1482,7 @@ hr.byline-accent {
 		height: 100%;
 		background-color: rgba(0,0,0,0.0);
 		background-image: -webkit-linear-gradient(top left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.0) 100%);
-		background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #000000), color-stop(1, #000000));
+		background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #ADADAD), color-stop(1, #ADADAD));
 		background-image: -moz-linear-gradient(top left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.0) 100%);
 		background-image: -ms-linear-gradient(top left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.0) 100%);
 		background-image: -o-linear-gradient(top left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.0) 100%);
