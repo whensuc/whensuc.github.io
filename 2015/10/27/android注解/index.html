@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>你一定要努力</title>
+  <title>android注解工具类 | 你一定要努力</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -210,76 +210,127 @@
 
         <!-- ============================ END Hero Image =========================== -->
       
-
-
-<section id="services">
+<section id="intro">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="row boxes">
-                    
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/10/27/android注解/">android注解工具类</a></h4>
-                            
-                            <p><time datetime="2015-10-27T03:28:42.000Z"><a href="/2015/10/27/android注解/">2015-10-27</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/10/26/VolleyUtil/">VolleyUtil</a></h4>
-                            
-                            <p><time datetime="2015-10-26T08:44:29.000Z"><a href="/2015/10/26/VolleyUtil/">2015-10-26</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/08/26/jquery-spring/">JQuery easyUI + SpringMVC</a></h4>
-                            
-                            <p><time datetime="2015-08-26T08:44:29.000Z"><a href="/2015/08/26/jquery-spring/">2015-08-26</a></time></p>
-                        </div>
-                    
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/07/17/test/">Markdown简单语法</a></h4>
-                            
-                            <p><time datetime="2015-07-17T00:46:06.000Z"><a href="/2015/07/17/test/">2015-07-17</a></time></p>
-                        </div>
-                    
-                        
-                            </div><div class="row boxes">
-                            
-                        
-                        
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                            
-                              <h4 class="title"><a href="/2015/04/26/hello-world/">Hello Hexo</a></h4>
-                            
-                            <p><time datetime="2015-04-26T08:44:29.000Z"><a href="/2015/04/26/hello-world/">2015-04-26</a></time></p>
-                        </div>
-                    
-                </div>
-            </div>    
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2015-10-27T03:28:42.000Z" itemprop="datePublished">
+          2015-10-27
+      </time>
+    
+    
+    | 
+    <a href='/tags/android-注解-工具类/'>android 注解  工具类</a>
+    
+    
+</span>
+                <h1>android注解工具类</h1>
+            </div>
         </div>
-    </div>
-</section> 
+        <div class="col-md-8 col-md-offset-2">
+      		<h2 id="简介">简介</h2><pre><code>通过<span class="type">Java</span>反射机制，利用注解代替android中setContentView(<span class="type">R</span>.layout.<span class="type">XXX</span>)加载布局文件和findViewById(<span class="type">R</span>.id.<span class="type">XXX</span>)获得控件对象。
+加载布局注解格式：
+<span class="annotation">@ContentView</span>(value=<span class="type">R</span>.layout.<span class="type">XXX</span>)。
+public <span class="class"><span class="keyword">class</span> <span class="title">XXXActivity</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Activity</span>{</span>}
+控件对象注解格式:
+<span class="annotation">@ViewInject</span>(<span class="type">R</span>.id.<span class="type">XXX</span>)
+<span class="keyword">private</span> <span class="type">XXX</span> xx;
+</code></pre><h2 id="实现">实现</h2><pre><code>定义注解类:
+@<span class="type">Target</span>(<span class="type">ElementType</span>.<span class="type">FIELD</span>)  
+@<span class="type">Retention</span>(<span class="type">RetentionPolicy</span>.<span class="type">RUNTIME</span>)  
+public @<span class="keyword">interface</span> <span class="type">ViewInject</span> {
+    <span class="type">int</span> value(); 
+}
+@<span class="type">Target</span>(<span class="type">ElementType</span>.<span class="type">TYPE</span>)  
+@<span class="type">Retention</span>(<span class="type">RetentionPolicy</span>.<span class="type">RUNTIME</span>)  
+public @<span class="keyword">interface</span> <span class="type">ContentView</span> {
+    <span class="type">int</span> value();
+}
+<span class="type">Java</span>反射调用setContentView方法和findViewById方法：
+private <span class="keyword">static</span> <span class="type">void</span> injectContentView(<span class="type">Activity</span> activity)  
+{  
+    <span class="type">Class</span>&lt;? extends <span class="type">Activity</span>&gt; clazz = activity.getClass();  
+    // 查询类上是否存在<span class="type">ContentView</span>注解  
+    <span class="type">ContentView</span> contentView = clazz.getAnnotation(<span class="type">ContentView</span>.class);  
+    <span class="keyword">if</span> (contentView != null)// 存在  
+    {  
+        <span class="type">int</span> contentViewLayoutId = contentView.value();  
+        <span class="keyword">try</span>  
+        {  
+            <span class="type">Method</span> <span class="keyword">method</span> = clazz.getMethod(<span class="type">METHOD_SET_CONTENTVIEW</span>,  
+                    <span class="type">int</span>.class);  
+            <span class="keyword">method</span>.setAccessible(<span class="literal">true</span>);  
+            <span class="keyword">method</span>.invoke(activity, contentViewLayoutId);  
+        } catch (<span class="type">Exception</span> e)  
+        {  
+            e.printStackTrace();  
+        }  
+    }  
+} 
 
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>有些梦不是不能实现 只要你足够强。</p>
+private <span class="keyword">static</span> <span class="type">void</span> injectViews(<span class="type">Activity</span> activity)  
+{  
+    <span class="type">Class</span>&lt;? extends <span class="type">Activity</span>&gt; clazz = activity.getClass();  
+    <span class="type">Field</span>[] fields = clazz.getDeclaredFields();  
+    // 遍历所有成员变量  
+    <span class="keyword">for</span> (<span class="type">Field</span> field : fields)  
+    {            
+        <span class="type">ViewInject</span> viewInjectAnnotation = field  
+                .getAnnotation(<span class="type">ViewInject</span>.class);  
+        <span class="keyword">if</span> (viewInjectAnnotation != null)  
+        {  
+            <span class="type">int</span> viewId = viewInjectAnnotation.value();  
+            <span class="keyword">if</span> (viewId != -<span class="number">1</span>)  
+            {  
+                // 初始化<span class="type">View</span>  
+                <span class="keyword">try</span>  
+                {  
+                    <span class="type">Method</span> <span class="keyword">method</span> = clazz.getMethod(<span class="type">METHOD_FIND_VIEW_BY_ID</span>,  
+                            <span class="type">int</span>.class);  
+                    <span class="type">Object</span> resView = <span class="keyword">method</span>.invoke(activity, viewId);  
+                    field.setAccessible(<span class="literal">true</span>);  
+                    field.<span class="type">set</span>(activity, resView);  
+                } catch (<span class="type">Exception</span> e)  
+                {  
+                    e.printStackTrace();  
+                }  
+            }  
+        }   
+    }   
+}  
+</code></pre><p><a href="https://github.com/whensuc/ViewInjectUtil" target="_blank" rel="external">工具类源码地址</a></p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
         </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2015/10/26/VolleyUtil/">
+        VolleyUtil →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/10/27/android注解/" data-title="android注解工具类" data-url="http://yoursite.com/2015/10/27/android注解/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"whensuc"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
     </div>
 </section>
+
+
       
 <!-- ============================ Footer =========================== -->
 
