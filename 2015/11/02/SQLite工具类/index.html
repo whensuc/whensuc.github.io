@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>android注解工具类 | 你一定要努力</title>
+  <title>SQLite工具类 | 你一定要努力</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -226,110 +226,136 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2015-10-27T03:28:42.000Z" itemprop="datePublished">
-          2015-10-27
+      <time datetime="2015-11-02T09:20:04.000Z" itemprop="datePublished">
+          2015-11-02
       </time>
     
     
     | 
-    <a href='/tags/android-注解-工具类/'>android 注解  工具类</a>
+    <a href='/tags/android-sqlite-工具类/'>android sqlite 工具类</a>
     
     
 </span>
-                <h1>android注解工具类</h1>
+                <h1>SQLite工具类</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<h2 id="简介">简介</h2><pre><code>通过<span class="type">Java</span>反射机制，利用注解代替android中setContentView(<span class="type">R</span>.layout.<span class="type">XXX</span>)加载布局文件和findViewById(<span class="type">R</span>.id.<span class="type">XXX</span>)获得控件对象。
-加载布局注解格式：
-<span class="annotation">@ContentView</span>(value=<span class="type">R</span>.layout.<span class="type">XXX</span>)。
-public <span class="class"><span class="keyword">class</span> <span class="title">XXXActivity</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Activity</span>{</span>}
-控件对象注解格式:
-<span class="annotation">@ViewInject</span>(<span class="type">R</span>.id.<span class="type">XXX</span>)
-<span class="keyword">private</span> <span class="type">XXX</span> xx;
-</code></pre><h2 id="实现">实现</h2><pre><code>定义注解类:
-@<span class="type">Target</span>(<span class="type">ElementType</span>.<span class="type">FIELD</span>)  
-@<span class="type">Retention</span>(<span class="type">RetentionPolicy</span>.<span class="type">RUNTIME</span>)  
-public @<span class="keyword">interface</span> <span class="type">ViewInject</span> {
-    <span class="type">int</span> value(); 
+      		<h2 id="sqlite工具类">sqlite工具类</h2><pre><code>本工具类主要对SQLiteOpenHelper类和SQLiteDatabase类提供方法进行封装，采用单例模式，保证数据库实例只有一个。对SQLiteDatabase中的增删改查方法进行简单封装，其中查询方法，通过Java反射机制，使查询结构自动填装实体类，结合泛型使此方法更通用。数据库版本升级方法通过回调接口方法来实现。
+</code></pre><h2 id="反射机制结合泛型实现通用型方法">反射机制结合泛型实现通用型方法</h2><pre><code><span class="number">1</span>. <span class="type">Java</span>反射机制简介。
+    <span class="type">JAVA</span>反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。
+<span class="number">2</span>. 简单用法
+    获取<span class="type">Class</span>对象方法:
+    <span class="type">Class</span> c1 = <span class="type">Class</span>.form(<span class="string">"带路径类名"</span>)
+    <span class="type">Class</span> c2 = 类名.class
+    <span class="type">Class</span> c3 = 类对象.getClass(); 
+    获得类属性:
+    <span class="type">Field</span>[] fields = c.getDeclaredFields();
+    调用get方法
+    <span class="type">Method</span> <span class="keyword">method</span> = c.getMethod(<span class="string">"get"</span>+name.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+name.substring(<span class="number">1</span>));
+    <span class="keyword">method</span>.invoke(<span class="keyword">object</span>)
+    调用<span class="type">set</span>方法
+    <span class="type">String</span> <span class="keyword">type</span> = field.getGenericType().toString();
+    <span class="keyword">if</span>(<span class="keyword">type</span>.equals(<span class="string">"class java.lang.String"</span>)){
+        <span class="type">String</span> value = cursor.getString(cursor.getColumnIndex(field.getName()));
+        <span class="type">Method</span> <span class="keyword">method</span> = vo.getMethod(<span class="string">"set"</span>+name.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+name.substring(<span class="number">1</span>),new <span class="type">Class</span>[]{<span class="type">String</span>.class});
+        <span class="keyword">method</span>.invoke(le,value);
+    }
+<span class="number">3</span>.插入记录方法和查询方法实现
+    /**
+    * 描述:  插入记录方法
+    * @param table ： 表名
+    * @param <span class="keyword">object</span> ： 实体类对象
+    * @param vo  ：  <span class="type">Class</span>对象
+    * @author wzy <span class="number">2015</span>年<span class="number">11</span>月<span class="number">2</span>日 下午<span class="number">9</span>:<span class="number">02</span>:<span class="number">45</span>
+     */
+public &lt;E&gt; <span class="type">void</span> insert(<span class="type">String</span> table,E <span class="keyword">object</span>,<span class="type">Class</span>&lt;E&gt; vo){
+    ifCloseOpen(db);
+    <span class="type">ContentValues</span> values = new <span class="type">ContentValues</span>();
+    <span class="type">Field</span>[] fields = vo.getDeclaredFields();
+    <span class="keyword">for</span>(<span class="type">Field</span> field : fields){
+        <span class="type">String</span> name = field.getName();
+        <span class="keyword">try</span> {
+            <span class="type">Method</span> <span class="keyword">method</span> = vo.getMethod(<span class="string">"get"</span>+name.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+name.substring(<span class="number">1</span>));
+            <span class="type">String</span> value = <span class="keyword">method</span>.invoke(<span class="keyword">object</span>).toString();
+            values.put(name, value);
+        } catch (<span class="type">Exception</span> e) {
+            e.printStackTrace();
+        }
+    }
+    db.insert(table, null, values);
 }
-@<span class="type">Target</span>(<span class="type">ElementType</span>.<span class="type">TYPE</span>)  
-@<span class="type">Retention</span>(<span class="type">RetentionPolicy</span>.<span class="type">RUNTIME</span>)  
-public @<span class="keyword">interface</span> <span class="type">ContentView</span> {
-    <span class="type">int</span> value();
-}
-<span class="type">Java</span>反射调用setContentView方法和findViewById方法：
-private <span class="keyword">static</span> <span class="type">void</span> injectContentView(<span class="type">Activity</span> activity)  
-{  
-    <span class="type">Class</span>&lt;? extends <span class="type">Activity</span>&gt; clazz = activity.getClass();  
-    // 查询类上是否存在<span class="type">ContentView</span>注解  
-    <span class="type">ContentView</span> contentView = clazz.getAnnotation(<span class="type">ContentView</span>.class);  
-    <span class="keyword">if</span> (contentView != null)// 存在  
-    {  
-        <span class="type">int</span> contentViewLayoutId = contentView.value();  
-        <span class="keyword">try</span>  
-        {  
-            <span class="type">Method</span> <span class="keyword">method</span> = clazz.getMethod(<span class="type">METHOD_SET_CONTENTVIEW</span>,  
-                    <span class="type">int</span>.class);  
-            <span class="keyword">method</span>.setAccessible(<span class="literal">true</span>);  
-            <span class="keyword">method</span>.invoke(activity, contentViewLayoutId);  
-        } catch (<span class="type">Exception</span> e)  
-        {  
-            e.printStackTrace();  
-        }  
-    }  
-} 
 
-private <span class="keyword">static</span> <span class="type">void</span> injectViews(<span class="type">Activity</span> activity)  
-{  
-    <span class="type">Class</span>&lt;? extends <span class="type">Activity</span>&gt; clazz = activity.getClass();  
-    <span class="type">Field</span>[] fields = clazz.getDeclaredFields();  
-    // 遍历所有成员变量  
-    <span class="keyword">for</span> (<span class="type">Field</span> field : fields)  
-    {            
-        <span class="type">ViewInject</span> viewInjectAnnotation = field  
-                .getAnnotation(<span class="type">ViewInject</span>.class);  
-        <span class="keyword">if</span> (viewInjectAnnotation != null)  
-        {  
-            <span class="type">int</span> viewId = viewInjectAnnotation.value();  
-            <span class="keyword">if</span> (viewId != -<span class="number">1</span>)  
-            {  
-                // 初始化<span class="type">View</span>  
-                <span class="keyword">try</span>  
-                {  
-                    <span class="type">Method</span> <span class="keyword">method</span> = clazz.getMethod(<span class="type">METHOD_FIND_VIEW_BY_ID</span>,  
-                            <span class="type">int</span>.class);  
-                    <span class="type">Object</span> resView = <span class="keyword">method</span>.invoke(activity, viewId);  
-                    field.setAccessible(<span class="literal">true</span>);  
-                    field.<span class="type">set</span>(activity, resView);  
-                } catch (<span class="type">Exception</span> e)  
-                {  
-                    e.printStackTrace();  
-                }  
-            }  
-        }   
-    }   
-}  
-</code></pre><p><a href="https://github.com/whensuc/ViewInjectUtil" target="_blank" rel="external">工具类源码地址</a></p>
+/**
+    * 描述:  原生sql查询，查询结构自动填充实体类(目前只支持<span class="type">int</span>,<span class="type">String</span>,<span class="type">Long</span>,double,<span class="type">float</span>,short)
+    * @param sql : 原生sql语句
+    * @param params ： 参数
+    * @param vo ： 实体类
+    * @<span class="keyword">return</span>  ： 返回实体类集合
+    * @author wzy <span class="number">2015</span>年<span class="number">11</span>月<span class="number">2</span>日 下午<span class="number">2</span>:<span class="number">14</span>:<span class="number">54</span>
+ */
+public &lt;E&gt; <span class="type">List</span>&lt;E&gt; rawQuery(<span class="type">String</span> sql,<span class="type">String</span>[] params,<span class="type">Class</span>&lt;E&gt; vo){
+    ifCloseOpen(db);
+    <span class="type">List</span>&lt;E&gt; <span class="type">array</span> = new <span class="type">ArrayList</span>&lt;E&gt;();
+    <span class="type">Cursor</span> cursor = db.rawQuery(sql, params);
+    <span class="type">Field</span>[] fields = vo.getDeclaredFields();
+    <span class="keyword">try</span> {
+        E le = vo.newInstance();
+        <span class="keyword">if</span>(cursor.moveToFirst()){
+            <span class="keyword">do</span>{
+                <span class="keyword">for</span>(<span class="type">Field</span> field: fields){
+                    <span class="type">String</span> name = field.getName();
+                    <span class="type">String</span> <span class="keyword">type</span> = field.getGenericType().toString();
+                    <span class="keyword">if</span>(<span class="keyword">type</span>.equals(<span class="string">"class java.lang.String"</span>)){
+                        <span class="type">String</span> value = cursor.getString(cursor.getColumnIndex(field.getName()));
+                        <span class="type">Method</span> <span class="keyword">method</span> = vo.getMethod(<span class="string">"set"</span>+name.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+name.substring(<span class="number">1</span>),new <span class="type">Class</span>[]{<span class="type">String</span>.class});
+                        <span class="keyword">method</span>.invoke(le,value);
+                    }<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">type</span>.equals(<span class="string">"int"</span>)){
+                        <span class="type">int</span> value = cursor.getInt(cursor.getColumnIndex(field.getName()));
+                        <span class="type">Method</span> <span class="keyword">method</span> = vo.getMethod(<span class="string">"set"</span>+name.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+name.substring(<span class="number">1</span>),new <span class="type">Class</span>[]{<span class="type">int</span>.class});
+                        <span class="keyword">method</span>.invoke(le,value);
+                    }<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">type</span>.equals(<span class="string">"double"</span>)){
+                        double value = cursor.getDouble(cursor.getColumnIndex(field.getName()));
+                        <span class="type">Method</span> <span class="keyword">method</span> = vo.getMethod(<span class="string">"set"</span>+name.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+name.substring(<span class="number">1</span>),new <span class="type">Class</span>[]{double.class});
+                        <span class="keyword">method</span>.invoke(le,value);
+                    }<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">type</span>.equals(<span class="string">"float"</span>)){
+                        <span class="type">float</span> value = cursor.getFloat(cursor.getColumnIndex(field.getName()));
+                        <span class="type">Method</span> <span class="keyword">method</span> = vo.getMethod(<span class="string">"set"</span>+name.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+name.substring(<span class="number">1</span>),new <span class="type">Class</span>[]{<span class="type">float</span>.class});
+                        <span class="keyword">method</span>.invoke(le,value);
+                    }<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">type</span>.equals(<span class="string">"long"</span>)){
+                        long value = cursor.getLong(cursor.getColumnIndex(field.getName()));
+                        <span class="type">Method</span> <span class="keyword">method</span> = vo.getMethod(<span class="string">"set"</span>+name.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+name.substring(<span class="number">1</span>),new <span class="type">Class</span>[]{long.class});
+                        <span class="keyword">method</span>.invoke(le,value);
+                    }<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">type</span>.equals(<span class="string">"short"</span>)){
+                        short value = cursor.getShort(cursor.getColumnIndex(field.getName()));
+                        <span class="type">Method</span> <span class="keyword">method</span> = vo.getMethod(<span class="string">"set"</span>+name.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+name.substring(<span class="number">1</span>),new <span class="type">Class</span>[]{short.class});
+                        <span class="keyword">method</span>.invoke(le,value);
+                    }                    
+                }
+                <span class="type">array</span>.add(le);
+            }<span class="keyword">while</span>(cursor.moveToNext());
+        }
+    } catch (<span class="type">Exception</span> e) {
+        e.printStackTrace();
+    }
+    cursor.close();
+    <span class="keyword">return</span> <span class="type">array</span>;
+}
+</code></pre><p><a href="https://github.com/whensuc/SQLiteUtil" target="_blank" rel="external">源码地址链接</a></p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="pagination" role="pagination">
     
-    <a class="pull-left" href="/2015/11/02/SQLite工具类/" style="float: left;">
-        ← SQLite工具类
-    </a>
     
-    
-    <a class="pull-right" href="/2015/10/26/VolleyUtil/">
-        VolleyUtil →
+    <a class="pull-right" href="/2015/10/27/android注解/">
+        android注解工具类 →
     </a>
     
 </nav>
 
         <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2015/10/27/android注解/" data-title="android注解工具类" data-url="http://yoursite.com/2015/10/27/android注解/"></div>
+<div class="ds-thread" data-thread-key="2015/11/02/SQLite工具类/" data-title="SQLite工具类" data-url="http://yoursite.com/2015/11/02/SQLite工具类/"></div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"whensuc"};
 (function() {
