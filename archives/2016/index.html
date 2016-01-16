@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>android mvp模式 | 你一定要努力</title>
+  <title>你一定要努力</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -84,7 +84,7 @@
 </head>
 
 <!--
-<body class="post-template">
+<body class="home-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -221,171 +221,37 @@
 
         <!-- ============================ END Hero Image =========================== -->
       
-<section id="intro">
+
+
+<section id="services">
     <div class="container">
-        <div class="row col-md-offset-2">
-            <div class="col-md-8">
-    			<span class="post-meta">
-      <time datetime="2015-11-25T07:40:31.000Z" itemprop="datePublished">
-          2015-11-25
-      </time>
-    
-    
-    | 
-    <a href='/tags/android-mvp/'>android mvp</a>
-    
-    
-</span>
-                <h1>android mvp模式</h1>
-            </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row boxes">
+                    
+                    
+                        
+                        
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+                            
+                              <h4 class="title"><a href="/2016/01/16/随笔/">随笔</a></h4>
+                            
+                            <p><time datetime="2016-01-16T04:35:24.000Z"><a href="/2016/01/16/随笔/">2016-01-16</a></time></p>
+                        </div>
+                    
+                </div>
+            </div>    
         </div>
-        <div class="col-md-8 col-md-offset-2">
-      		<h3 id="android_mvp模式简介">android mvp模式简介</h3><pre><code>MVP模式是MVC模式在Android上的一种变体。在MVC模式中，Activity应该是属于<span class="keyword">View</span>这一层的，而实质上，它同时还承担了Controller的功能，耦合度太高。把Activity的<span class="keyword">View</span>和Controller抽离出来形成<span class="keyword">View</span>和Presenter，降低耦合性。
-MVP是Activity中的UI逻辑抽象成<span class="keyword">VIew</span>接口，把业务逻辑抽象成Presenter接口，Activity只用来响应生命周期，其它工作丢到Presenter中去完成。Presenter是Model和<span class="keyword">View</span>之间的桥梁，<span class="keyword">View</span>不直接操作Model。
-</code></pre><h3 id="MVP模式简单实例">MVP模式简单实例</h3><p>Activity:LoginActivity只做了findView以及setListener的工作，而且包含了一个ILoginPresenter，所有业务逻辑都是通过调用ILoginPresenter的具体接口来完成。</p>
-<pre><code><span class="comment">//View接口</span>
-<span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ILoginView</span> </span>{
-<span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">checkInputInfo</span><span class="params">()</span></span>;
-<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">clearInputInfo</span><span class="params">()</span></span>;
-<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onLogResult</span><span class="params">(<span class="keyword">boolean</span> result,<span class="keyword">int</span> code)</span></span>;
-}    
+    </div>
+</section> 
 
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> <span class="keyword">implements</span> <span class="title">ILoginView</span>,<span class="title">View</span>.<span class="title">OnClickListener</span></span>{
-
-<span class="keyword">private</span> ILogPresenter iLogPresenter;
-<span class="keyword">private</span> EditText et_username;
-<span class="keyword">private</span> EditText et_userpwd;
-<span class="keyword">private</span> Button bn_log;
-<span class="keyword">private</span> LogUser user;
-<span class="annotation">@Override</span>
-<span class="keyword">protected</span> <span class="function"><span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>{
-    <span class="keyword">super</span>.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_login);
-    init();
-}
-<span class="comment">//初始化控件</span>
-<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>{
-    et_username = (EditText)findViewById(R.id.et_LoginUsername);
-    et_userpwd = (EditText)findViewById(R.id.et_Pwd);
-    bn_log = (Button)findViewById(R.id.bn_Login);
-    iLogPresenter = <span class="keyword">new</span> LogPresenter(<span class="keyword">this</span>);
-    bn_log.setOnClickListener(<span class="keyword">this</span>);
-    user = <span class="keyword">new</span> LogUser();
-}
-
-<span class="annotation">@Override</span>
-<span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">checkInputInfo</span><span class="params">()</span> </span>{
-  <span class="keyword">if</span>(!TextUtils.isEmpty(et_username.getText().toString())&amp;&amp;!TextUtils.isEmpty(et_userpwd.getText().toString())){
-      <span class="keyword">return</span> <span class="keyword">true</span>;
-  }<span class="keyword">else</span> <span class="keyword">if</span>(TextUtils.isEmpty(et_username.getText().toString())){
-      Toast.makeText(LoginActivity.<span class="keyword">this</span>,<span class="string">"请输入用户名"</span>,Toast.LENGTH_LONG).show();
-      <span class="keyword">return</span> <span class="keyword">false</span>;
-  }<span class="keyword">else</span> <span class="keyword">if</span>(TextUtils.isEmpty(et_userpwd.getText().toString())){
-      Toast.makeText(LoginActivity.<span class="keyword">this</span>,<span class="string">"请输入密码"</span>,Toast.LENGTH_LONG).show();
-      <span class="keyword">return</span> <span class="keyword">false</span>;
-  }
-    <span class="keyword">return</span> <span class="keyword">false</span>;
-}
-
-<span class="annotation">@Override</span>
-<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">clearInputInfo</span><span class="params">()</span> </span>{
-    et_username.setText(<span class="string">""</span>);
-    et_userpwd.setText(<span class="string">""</span>);
-}
-
-<span class="annotation">@Override</span>
-<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onLogResult</span><span class="params">(<span class="keyword">boolean</span> result, <span class="keyword">int</span> code)</span> </span>{
-    <span class="keyword">if</span>(result){
-        Toast.makeText(LoginActivity.<span class="keyword">this</span>,<span class="string">"登陆成功"</span>,Toast.LENGTH_LONG).show();
-        Intent itent = <span class="keyword">new</span> Intent(LoginActivity.<span class="keyword">this</span>,MainActivity.class);
-        startActivity(itent);
-        finish();
-    }<span class="keyword">else</span>{
-        Toast.makeText(LoginActivity.<span class="keyword">this</span>,<span class="string">"登陆失败"</span>,Toast.LENGTH_LONG).show();
-    }
-}
-
-<span class="annotation">@Override</span>
-<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>{
-    <span class="keyword">switch</span>(v.getId()){
-        <span class="keyword">case</span> R.id.bn_Login:
-            user.setUsername(et_username.getText().toString());
-            user.setUserpwd(et_userpwd.getText().toString());
-            iLogPresenter.doLogin(user);
-            <span class="keyword">break</span>;
-    }
-}
-}
-</code></pre><p>Presenter：LoginPresenter保留了ILoginView的引用，因此在LoginPresenter里就可以直接进行UI操作了，而不用在Activity里完成。这里使用了ILoginView引用，而不是直接使用Activity，这样一来，如果在别的Activity里也需要用到相同的业务逻辑，就可以直接复用LoginPresenter类了</p>
-<pre><code><span class="comment">//Presenter接口</span>
-<span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ILogPresenter</span> </span>{
-   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkInputInfo</span><span class="params">()</span></span>;
-   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clearInputInfo</span><span class="params">()</span></span>;
-   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doLogin</span><span class="params">(LogUser user)</span></span>;
-}
-
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogPresenter</span> <span class="keyword">implements</span> <span class="title">ILogPresenter</span></span>{
-<span class="keyword">private</span> ILoginView iLoginView;
-
-<span class="function"><span class="keyword">public</span> <span class="title">LogPresenter</span><span class="params">(ILoginView iLoginView)</span></span>{
-   <span class="keyword">this</span>.iLoginView = iLoginView;
-}
-
-<span class="annotation">@Override</span>
-<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkInputInfo</span><span class="params">()</span> </span>{
-    <span class="keyword">return</span> iLoginView.checkInputInfo();
-}
-
-<span class="annotation">@Override</span>
-<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clearInputInfo</span><span class="params">()</span> </span>{
-    iLoginView.clearInputInfo();
-}
-
-<span class="annotation">@Override</span>
-<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doLogin</span><span class="params">(LogUser user)</span> </span>{
-    <span class="keyword">if</span>(!checkInputInfo())<span class="keyword">return</span>;
-    <span class="keyword">if</span>(user.getUsername().equals(<span class="string">"admin"</span>)&amp;&amp;user.getUserpwd().equals(<span class="string">"admin"</span>)){
-        iLoginView.onLogResult(<span class="keyword">true</span>,<span class="number">0</span>);
-    }<span class="keyword">else</span>{
-        iLoginView.onLogResult(<span class="keyword">false</span>,<span class="number">1</span>);
-    }
-}
-}
-</code></pre>
-            <div class="clearfix"></div>
-            <hr class="nogutter">
+<section id="statement">
+    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
+        <div class="row">
+            <p>有些梦不是不能实现 只要你足够强。</p>
         </div>
-        <nav class="pagination" role="pagination">
-    
-    <a class="pull-left" href="/2016/01/16/随笔/" style="float: left;">
-        ← 随笔
-    </a>
-    
-    
-    <a class="pull-right" href="/2015/11/02/SQLite工具类/">
-        SQLite工具类 →
-    </a>
-    
-</nav>
-
-        <div class="duoshuo">
-<div class="ds-thread" data-thread-key="2015/11/25/android-mvp模式/" data-title="android mvp模式" data-url="http://yoursite.com/2015/11/25/android-mvp模式/"></div>
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"whensuc"};
-(function() {
-	var ds = document.createElement('script');
-	ds.type = 'text/javascript';ds.async = true;
-	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-	ds.charset = 'UTF-8';
-	(document.getElementsByTagName('head')[0] 
-	 || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
-</div>
     </div>
 </section>
-
-
       
 <!-- ============================ Footer =========================== -->
 
